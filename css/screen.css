@@ -48,7 +48,7 @@
     --global-borderWidth: 1px;
 
     /* transitions */
-    --global-transitionTiming-alpha: .1s ease-out;
+    --global-transition-timing-alpha: .1s ease-out;
 
     /* Baseline settings */
     --global-baseline: 8px;
@@ -75,6 +75,9 @@
     --global-input-hover-borderColor: var(--global-color-neutral-xx-light);
     --global-input-focus-borderColor: var(--global-color-alpha);
     --global-input-boxShadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
+
+
+    --global-transition-timing: ease-in-out 85ms;
 }
 
 /*------------------------------------*\
@@ -218,7 +221,7 @@ hr {
 
 a,
 a:visited {
-    transition: all var(--global-transitionTiming-alpha);
+    transition: all var(--global-transition-timing-alpha);
     color: var(--global-color-alpha);
     outline-color: var(--global-link-BoxShadowColor);
     outline-width: medium;
@@ -529,16 +532,35 @@ input::placeholder {
 }
 
 .c-custom-option {
+    --custom-option-borderColor: var(--global-input-borderColor);
+    --custom-option-focus-borderColor: var(--global-input-focus-borderColor);
+
     display: flex;
+}
+
+.c-custom-option__fake-input {
+    border: 1px solid var(--custom-option-borderColor);
+}
+
+.c-custom-option:hover {
+    --custom-option-borderColor: var(--custom-option-focus-borderColor);
+}
+
+.c-option--hidden:focus + .c-custom-option .c-custom-option__fake-input {
+    --custom-option-borderColor: #81ADF0;
+    outline: #3385FF12 solid 3px;
+    outline-offset: 1px;
 }
 
 .c-custom-option__symbol {
     display: block;
-
+    opacity: 0;
+    transition: opacity var(--global-transition-timing);
 }
 
-.c-custom-option__symbol:checked {
+.c-option--hidden:checked {
     opacity: 1;
+
 }
 
 .c-custom-option__fake-input--checkbox .c-custom-option__symbol {
@@ -565,12 +587,10 @@ input::placeholder {
     width: var(--global-whitespace-md);
     height: var(--global-whitespace-md);
     margin-right: var(--global-whitespace-sm);
-    /*margin-top: var(--global-whitespace-sm);*/
-    margin-bottom: var(--global-whitespace-sm);
     background: var(--global-input-backgroundColor);
     border: var(--global-borderWidth) solid var(--custom-option-borderColor, var(--global-input-borderColor));
     box-shadow: var(--custom-option-boxShadow, 0);
-    transition: border var(--global-transitionTiming-alpha), box-shadow var(--global-transitionTiming-alpha);
+    transition: border var(--global-transition-timing-alpha), box-shadow var(--global-transition-timing-alpha);
 }
 
 .c-custom-option__fake-input--checkbox {
@@ -582,6 +602,90 @@ input::placeholder {
 }
 
 
+.c-option-list {
+    margin-bottom: 24px;
+}
+
+.c-option-list__item {
+    margin-bottom: 12px;
+}
+
+/*
+    Component: custom options
+    ---
+*/
+
+.c-custom-toggle {
+    display: flex;
+    align-items: center;
+}
+
+
+.c-custom-toggle__fake-input {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    width: 48px;
+    margin-right: var(--global-whitespace-md);
+    background-color: #F5F6FA;
+    border-radius: 32px;
+    border: var(--global-borderWidth) solid #e2e3e7;
+    transition: all var(--global-transition-timing-alpha);
+    /*box-shadow: grey;*/
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.161);
+
+}
+
+
+.c-custom-toggle__fake-input::after {
+    display: block;
+    height: 24px;
+    width: 24px;
+    background-color: white;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.161);
+    border-radius: 50%;
+    content: "";
+    transition: all var(--global-transition-timing-alpha);
+}
+
+
+.c-option:checked + .c-custom-toggle .c-custom-toggle__fake-input {
+    background-color: var(--global-color-alpha);
+    border-color: #2E77E6;
+}
+
+.c-option:checked + .c-custom-toggle .c-custom-toggle__fake-input::after {
+    /*filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.161));*/
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.161);
+    transform: translateX(24px);
+}
+
+.c-option:active + .c-custom-toggle .c-custom-toggle__fake-input::after {
+    filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.161));
+    transform: scaleX(120%);
+}
+
+.c-option:focus + .c-custom-toggle .c-custom-toggle__fake-input {
+    outline: rgba(51, 133, 255, 0.2) 3px solid;
+}
+
+.c-custom-toggle--inverted {
+    width: 100%;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.c-custom-toggle--inverted .c-custom-toggle__fake-input {
+    margin-right: 0;
+    margin-left: var(--global-whitespace-md);
+}
+
+
+.c-toggle-list__item + .c-toggle-list__item {
+    margin-top: var(--global-whitespace-md);
+    padding-top: var(--global-whitespace-md);
+    border-top: var(--global-color-neutral-xxx-light) 1px solid;
+}
 /*
     Component: Logo
     ---
