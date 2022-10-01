@@ -509,27 +509,24 @@ input::placeholder {
 #COMPONENTS
 \*------------------------------------*/
 
+
+/*
+    Component: option list
+    ---
+*/
+
+.c-option-list {
+    margin-bottom: 24px;
+}
+
+.c-option-list__item {
+    margin-bottom: 12px;
+}
+
 /*
     Component: custom options
     ---
 */
-
-.c-option--hidden:checked + .c-custom-option {
-    /*
-      Do magic stuff here, for example:
-      background-color: red;
-    */
-}
-
-.c-option--hidden:checked + .c-custom-option .c-custom-option__symbol {
-    /*
-      Do magic stuff here, for example:
-      fill: blue;
-    */
-    /*fill: red;*/
-    /*background-color: red;*/
-    opacity: 1;
-}
 
 .c-custom-option {
     --custom-option-borderColor: var(--global-input-borderColor);
@@ -537,6 +534,7 @@ input::placeholder {
 
     display: flex;
 }
+
 
 .c-custom-option__fake-input {
     border: 1px solid var(--custom-option-borderColor);
@@ -546,10 +544,8 @@ input::placeholder {
     --custom-option-borderColor: var(--custom-option-focus-borderColor);
 }
 
-.c-option--hidden:focus + .c-custom-option .c-custom-option__fake-input {
-    --custom-option-borderColor: #81ADF0;
-    outline: #3385FF12 solid 3px;
-    outline-offset: 1px;
+.c-option--hidden:checked {
+    opacity: 1;
 }
 
 .c-custom-option__symbol {
@@ -558,10 +554,30 @@ input::placeholder {
     transition: opacity var(--global-transition-timing);
 }
 
-.c-option--hidden:checked {
+.c-option--hidden:checked + .c-custom-option .c-custom-option__symbol {
     opacity: 1;
-
 }
+
+.c-option--hidden:focus + .c-custom-option .c-custom-option__fake-input {
+    --custom-option-borderColor: #81ADF0;
+    outline: #3385FF12 solid 3px;
+    outline-offset: 1px;
+}
+
+.c-custom-option__fake-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: var(--global-whitespace-md);
+    height: var(--global-whitespace-md);
+    margin-right: var(--global-whitespace-sm);
+    background: var(--global-input-backgroundColor);
+    border: var(--global-borderWidth) solid var(--custom-option-borderColor, var(--global-input-borderColor));
+    box-shadow: var(--custom-option-boxShadow, 0);
+    transition: border var(--global-transition-timing-alpha), box-shadow var(--global-transition-timing-alpha);
+}
+
 
 .c-custom-option__fake-input--checkbox .c-custom-option__symbol {
     width: 10px;
@@ -579,19 +595,6 @@ input::placeholder {
     justify-items: center;
 }
 
-.c-custom-option__fake-input {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: var(--global-whitespace-md);
-    height: var(--global-whitespace-md);
-    margin-right: var(--global-whitespace-sm);
-    background: var(--global-input-backgroundColor);
-    border: var(--global-borderWidth) solid var(--custom-option-borderColor, var(--global-input-borderColor));
-    box-shadow: var(--custom-option-boxShadow, 0);
-    transition: border var(--global-transition-timing-alpha), box-shadow var(--global-transition-timing-alpha);
-}
 
 .c-custom-option__fake-input--checkbox {
     border-radius: var(--global-borderRadius);
@@ -599,15 +602,6 @@ input::placeholder {
 
 .c-custom-option__fake-input--radio {
     border-radius: 100%;
-}
-
-
-.c-option-list {
-    margin-bottom: 24px;
-}
-
-.c-option-list__item {
-    margin-bottom: 12px;
 }
 
 /*
@@ -632,7 +626,7 @@ input::placeholder {
     border: var(--global-borderWidth) solid #e2e3e7;
     transition: all var(--global-transition-timing-alpha);
     /*box-shadow: grey;*/
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.161);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.161);
 
 }
 
@@ -656,7 +650,7 @@ input::placeholder {
 
 .c-option:checked + .c-custom-toggle .c-custom-toggle__fake-input::after {
     /*filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.161));*/
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.161);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.161);
     transform: translateX(24px);
 }
 
@@ -686,6 +680,26 @@ input::placeholder {
     padding-top: var(--global-whitespace-md);
     border-top: var(--global-color-neutral-xxx-light) 1px solid;
 }
+
+/*
+    Component: custom select dropdown
+    ---
+*/
+
+.c-custom-select {
+    position: relative;
+}
+
+.c-custom-select__symbol {
+    position: absolute;
+    top: 0;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+    fill: #B5B6C0;
+    pointer-events: none;
+}
+
 /*
     Component: Logo
     ---
