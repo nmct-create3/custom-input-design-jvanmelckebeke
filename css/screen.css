@@ -1,6 +1,7 @@
 /*------------------------------------*\
 #FONTS
 \*------------------------------------*/
+/*#region fonts*/
 
 @font-face {
     font-family: "Inter Web";
@@ -14,9 +15,9 @@
     src: url("../fonts/Inter-SemiBold.woff2") format("woff2")
 }
 
-/*------------------------------------*\
-#Variables
-\*------------------------------------*/
+/*#endregion*/
+
+/*#region Variables*/
 
 :root {
     /* colors */
@@ -99,9 +100,9 @@
     }
 }
 
-/*------------------------------------*\
-#GENERIC
-\*------------------------------------*/
+/*#endregion */
+
+/*#region GENERIC */
 
 /*
     Generic: Page
@@ -245,6 +246,7 @@ a:visited {
     outline-color: var(--global-link-BoxShadowColor);
     outline-width: medium;
     outline-offset: 2px;
+    text-decoration: none;
 }
 
 a:hover,
@@ -265,6 +267,7 @@ input::placeholder {
     color: var(--global-color-neutral-x-light);
 }
 
+/*#endregion*/
 /*------------------------------------*\
 #OBJECTS
 \*------------------------------------*/
