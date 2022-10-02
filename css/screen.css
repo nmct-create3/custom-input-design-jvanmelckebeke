@@ -69,15 +69,34 @@
     /*  = 72px */
 
 
-    --global-input-backgroundColor: White;
+    --global-input-backgroundColor: var(--global-color-neutral-xxxx-light);
     --global-input-color: var(--global-color-neutral-xxxx-dark);
     --global-input-borderColor: var(--global-color-neutral-xxx-light);
     --global-input-hover-borderColor: var(--global-color-neutral-xx-light);
     --global-input-focus-borderColor: var(--global-color-alpha);
+
+
     --global-input-boxShadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
 
 
-    --global-transition-timing: ease-in-out 85ms;
+    --global-page-backgroundColor: var(--global-color-neutral-xxxx-light);
+    --global-text-color: var(--global-color-neutral-xxxx-dark);
+    --global-label-color: var(--global-color-neutral-xx-dark);
+
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --global-page-backgroundColor: var(--global-color-neutral-xxxx-dark);
+        --global-text-color: var(--global-color-neutral-xxxx-light);
+        --global-label-color: var(--global-color-neutral-xx-light);
+
+        --global-input-backgroundColor: var(--global-color-neutral-xxxx-dark);
+        --global-input-color: var(--global-color-neutral-xxxx-light);
+        --global-input-borderColor: var(--global-color-neutral-xxx-dark);
+        --global-input-hover-borderColor: var(--global-color-neutral-xx-dark);
+        --global-input-focus-borderColor: var(--global-color-alpha);
+    }
 }
 
 /*------------------------------------*\
@@ -93,8 +112,8 @@
 html {
     line-height: 1.5;
     font-family: "Inter Web", Helvetica, arial, sans-serif;
-    color: var(--global-color-neutral-xxxx-dark);
-    background-color: var(--global-color-neutral-xxxx-light);
+    color: var(--global-text-color);
+    background-color: var(--global-page-backgroundColor);
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -509,6 +528,165 @@ input::placeholder {
 #COMPONENTS
 \*------------------------------------*/
 
+/*
+    Component: Card
+    ---
+    Card with box shadow
+*/
+
+.c-card {
+    background-color: var(--card-background-color, white);
+    margin-bottom: var(--global-whitespace);
+    border-radius: var(--global-borderRadius);
+    box-shadow: 0 0 0 var(--global-borderWidth) rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, .075);
+    overflow: hidden;
+    /*color: ;*/
+}
+
+/* Add padding to child for more flexibility */
+.c-card__body,
+.c-card__footer {
+    padding: var(--global-whitespace);
+}
+
+.c-card__footer {
+    text-align: center;
+    border-top: var(--global-borderWidth) solid var(--global-color-neutral-xxx-light);
+}
+
+.c-card__title {
+    text-align: center;
+    font-size: 18px;
+    line-height: calc(var(--global-baseline) * 3);
+    font-weight: 600;
+}
+
+/* This allows c-card__body and __footer to have equal padding everywhere */
+
+.c-card__body > *:last-child,
+.c-card__footer > *:last-child,
+.c-card__body > *:last-child > *:last-child,
+.c-card__footer > *:last-child > *:last-child {
+    margin-bottom: 0;
+}
+
+@media (min-width: 27em) {
+    .c-card__body {
+        padding: var(--global-whitespace-xl);
+    }
+
+    .c-card__title {
+        margin-bottom: var(--global-whitespace-xl);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .c-card {
+        --card-background-color: #35374d;
+    }
+}
+
+/*
+    Component: Forms
+    ---
+    Everything form related here
+*/
+
+.c-form-field--option {
+    display: flex;
+    align-items: center;
+}
+
+/*
+    Component: Input
+    ---
+    Class to put on all input="text" like form inputs
+*/
+
+.c-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    border-radius: var(--global-borderRadius);
+    font-family: inherit;
+    font-size: 16px;
+    line-height: calc(var(--global-baseline) * 3);
+    padding: calc(var(--global-baseline) * 1.5 - var(--global-borderWidth)) var(--global-whitespace-md);
+    outline: none;
+    transition: border var(--global-transition-timing-alpha);
+
+    border: var(--global-borderWidth) solid var(--global-input-borderColor);
+    background-color: var(--global-input-backgroundColor);
+    color: var(--global-input-color);
+}
+
+.c-input:hover {
+    border-color: var(--global-input-hover-borderColor);
+}
+
+.c-input:focus,
+.c-input:active {
+    border-color: var(--global-input-focus-borderColor);
+    box-shadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
+}
+
+/* option input for checkboxes and radio buttons */
+
+.c-option {
+    margin-right: var(--global-whitespace-sm);
+}
+
+/*
+    Component: Label
+    ---
+    Class to put on all form labels
+*/
+
+.c-label {
+    margin-bottom: 0;
+    font-size: 14px;
+    padding-bottom: var(--global-whitespace-xs);
+    line-height: calc(var(--global-baseline) * 2);
+    color: var(--global-label-color);
+}
+
+.c-label--option {
+    padding-bottom: 0;
+}
+
+/*
+    Component: Button
+    ---
+    Class to put on form buttons or
+*/
+
+.c-button {
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: var(--global-borderRadius);
+    border: var(--global-borderWidth) solid var(--global-color-alpha-dark);
+    background-color: var(--global-color-alpha);
+    color: #fff;
+    padding: calc(var(--global-baseline) * 1.5 - var(--global-borderWidth)) var(--global-whitespace-md);
+    line-height: calc(var(--global-baseline) * 3);
+    width: 100%;
+    outline: none;
+    transition: all var(--global-transition-timing-alpha);
+}
+
+.c-button:hover {
+    background-color: var(--global-color-alpha-light);
+}
+
+.c-button:focus {
+    box-shadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
+}
+
+.c-button:active {
+    background-color: var(--global-color-alpha-dark);
+    box-shadow: none;
+}
 
 /*
     Component: option list
@@ -522,6 +700,7 @@ input::placeholder {
 .c-option-list__item {
     margin-bottom: 12px;
 }
+
 
 /*
     Component: custom options
@@ -551,7 +730,7 @@ input::placeholder {
 .c-custom-option__symbol {
     display: block;
     opacity: 0;
-    transition: opacity var(--global-transition-timing);
+    transition: opacity var(--global-transition-timing-alpha);
 }
 
 .c-option--hidden:checked + .c-custom-option .c-custom-option__symbol {
@@ -719,169 +898,25 @@ input::placeholder {
 }
 
 .c-logo__path--1 {
-    fill: var(--global-color-neutral-xxxx-dark);
+    fill: var(--logo__path--1--fill, var(--global-color-neutral-xxxx-dark));
 }
 
 .c-logo__path--2 {
-    fill: var(--global-color-alpha);
+    fill: var(--logo__path--2--fill, var(--global-color-alpha));
 }
 
 .c-logo__path--3 {
-    fill: var(--global-color-alpha-x-dark);
+    fill: var(--logo__path--3--fill, var(--global-color-alpha-x-dark));
 }
 
-/*
-    Component: Card
-    ---
-    Card with box shadow
-*/
-
-.c-card {
-    background-color: White;
-    margin-bottom: var(--global-whitespace);
-    border-radius: var(--global-borderRadius);
-    box-shadow: 0 0 0 var(--global-borderWidth) rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, .075);
-    overflow: hidden;
-}
-
-/* Add padding to child for more flexibility */
-.c-card__body,
-.c-card__footer {
-    padding: var(--global-whitespace);
-}
-
-.c-card__footer {
-    text-align: center;
-    border-top: var(--global-borderWidth) solid var(--global-color-neutral-xxx-light);
-}
-
-.c-card__title {
-    text-align: center;
-    font-size: 18px;
-    line-height: calc(var(--global-baseline) * 3);
-    font-weight: 600;
-}
-
-/* This allows c-card__body and __footer to have equal padding everywhere */
-
-.c-card__body > *:last-child,
-.c-card__footer > *:last-child,
-.c-card__body > *:last-child > *:last-child,
-.c-card__footer > *:last-child > *:last-child {
-    margin-bottom: 0;
-}
-
-@media (min-width: 27em) {
-    .c-card__body {
-        padding: var(--global-whitespace-xl);
-    }
-
-    .c-card__title {
-        margin-bottom: var(--global-whitespace-xl);
+@media (prefers-color-scheme: dark) {
+    .c-logo {
+        --logo__path--1--fill: White;
+        --logo__path--2--fill: var(--logo__path--1--fill);
+        --logo__path--3--fill: var(--logo__path--1--fill);
     }
 }
 
-/*
-    Component: Forms
-    ---
-    Everything form related here
-*/
-
-.c-form-field--option {
-    display: flex;
-    align-items: center;
-}
-
-/*
-    Component: Input
-    ---
-    Class to put on all input="text" like form inputs
-*/
-
-.c-input {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 100%;
-    border-radius: var(--global-borderRadius);
-    font-family: inherit;
-    font-size: 16px;
-    line-height: calc(var(--global-baseline) * 3);
-    padding: calc(var(--global-baseline) * 1.5 - var(--global-borderWidth)) var(--global-whitespace-md);
-    outline: none;
-    transition: border var(--global-transition-timing-alpha);
-
-    border: var(--global-borderWidth) solid var(--global-input-borderColor);
-    background-color: var(--global-input-backgroundColor);
-    color: var(--global-input-color);
-}
-
-.c-input:hover {
-    border-color: var(--global-input-hover-borderColor);
-}
-
-.c-input:focus,
-.c-input:active {
-    border-color: var(--global-input-focus-borderColor);
-    box-shadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
-}
-
-/* option input for checkboxes and radio buttons */
-
-.c-option {
-    margin-right: var(--global-whitespace-sm);
-}
-
-/*
-    Component: Label
-    ---
-    Class to put on all form labels
-*/
-
-.c-label {
-    margin-bottom: 0;
-    font-size: 14px;
-    padding-bottom: var(--global-whitespace-xs);
-    line-height: calc(var(--global-baseline) * 2);
-    color: var(--global-color-neutral-xx-dark);
-}
-
-.c-label--option {
-    padding-bottom: 0;
-}
-
-/*
-    Component: Button
-    ---
-    Class to put on form buttons or
-*/
-
-.c-button {
-    font-size: 16px;
-    font-weight: 700;
-    border-radius: var(--global-borderRadius);
-    border: var(--global-borderWidth) solid var(--global-color-alpha-dark);
-    background-color: var(--global-color-alpha);
-    color: #fff;
-    padding: calc(var(--global-baseline) * 1.5 - var(--global-borderWidth)) var(--global-whitespace-md);
-    line-height: calc(var(--global-baseline) * 3);
-    width: 100%;
-    outline: none;
-    transition: all var(--global-transition-timing-alpha);
-}
-
-.c-button:hover {
-    background-color: var(--global-color-alpha-light);
-}
-
-.c-button:focus {
-    box-shadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
-}
-
-.c-button:active {
-    background-color: var(--global-color-alpha-dark);
-    box-shadow: none;
-}
 
 /*------------------------------------*\
 #UTILITIES
